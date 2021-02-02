@@ -1,32 +1,44 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div class="container">
+    <div class="jumbotron">
+      <span v-decorar:chico.italico.negrilla="{familia: 'helvetica', color: 'red'}">
+        Aprende VueJS fácilmente
+      </span>
+      <hr>
+      <span v-decorar-local:grande.italico.negrilla="{familia: 'times new roman', color: 'purple'}">
+        Directiva Local
+      </span>
     </div>
-    <router-view/>
   </div>
 </template>
 
+<script>
+export default {
+  directives: {
+    'decorar-local': {
+      bind(el, binding, vnode){
+        el.style.fontFamily = binding.value.familia
+        el.style.color = binding.value.color
+
+        if(binding.arg === 'grande'){
+          el.style.fontSize = '50px'
+        }
+        if(binding.arg === 'chico'){
+          el.style.fontSize = '10px'
+        }
+
+        if(binding.modifiers['negrilla']){
+          el.style.fontWeight = 'bold'
+        } 
+        if (binding.modifiers['italico']){
+          el.style.fontStyle = 'italic'
+        }
+      }
+    }
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
